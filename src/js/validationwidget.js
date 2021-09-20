@@ -52,14 +52,13 @@ export default class ValidationWidget {
     const cardNumber = Array.from(value);
     cardNumber.pop();
     cardNumber.reverse();
-    console.log(cardNumber);
-    for (let i = 0; i <= cardNumber.length - 1; i = i + 2) {
+    for (let i = 0; i <= cardNumber.length - 1; i += 2) {
       const multiplyDigit = parseInt(cardNumber[i], 10) * 2;
       resultValue += counting(multiplyDigit.toString());
     }
-    for (let i = 1; i <= cardNumber.length - 1; i = i + 2) {
+    for (let i = 1; i <= cardNumber.length - 1; i += 2) {
       resultValue += parseInt(cardNumber[i], 10);
-    }   
+    }
     const checkDigit = 10 - (resultValue % 10);
     if (checkDigit === parseInt(value[value.length - 1], 10)) {
       return true;
@@ -72,12 +71,10 @@ export default class ValidationWidget {
       this.result.classList.remove('validity--negative');
       this.result.classList.add('validity--positive');
       this.result.innerText = 'Карта валидна!';
-    } else {
-      if (this.result.innerText == "") {
-        this.result.classList.remove('validity--positive');
-        this.result.classList.add('validity--negative');
-        this.result.innerText = 'Такой карты не cуществует! Проверьте правильность ввода';
-      }
+    } else if (this.result.innerText === '') {
+      this.result.classList.remove('validity--positive');
+      this.result.classList.add('validity--negative');
+      this.result.innerText = 'Такой карты не cуществует! Проверьте правильность ввода';
     }
   }
 }
