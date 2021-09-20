@@ -1,0 +1,43 @@
+ul {
+ list-style: none;
+ margin: 0;
+ padding: 0;
+}
+
+.cards__list {
+  display: flex;
+  flex-direction: row;
+}
+
+.cards__item {
+ padding-right: 15px;
+}
+
+.cards__icon {
+  filter: grayscale(1);
+}
+
+.cards__icon--active {
+  filter: grayscale(0);
+}
+
+.validation__input {
+  width: 200px;
+  height: 25px;
+}
+
+.validation__button {
+  padding: 5px;
+  background-color: #1a5e1a;
+  border: 1px solid #162716;
+  border-radius: 5px;
+  color: #fff;
+}
+
+.validity--positive {
+  color: #1a5e1a;
+}
+
+.validity--negative {
+  color: #6e1a0b;
+}

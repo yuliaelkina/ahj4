@@ -40,6 +40,13 @@ module.exports = {
         test: /\.png$/,
         type: 'asset/resource',
       },
+      {
+        test: /\.txt$/,
+        type: 'asset/source',
+        generator: {
+          filename: '[hash][ext]',
+        },
+      },
     ],
   },
   plugins: [
