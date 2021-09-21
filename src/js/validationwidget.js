@@ -15,22 +15,44 @@ export default class ValidationWidget {
     this.result = this._element.querySelector('.validity');
   }
 
-  paymentSystemChoice() {
-    const cardNumver = this.input.value;
+  static get markup() {
+    return `<div class="cards">
+    <ul class="cards__list">
+      <li class="cards__item"><img src="./img/mir.png" alt="мир" data-paymentsys="mir" class="cards__icon"></li>
+      <li class="cards__item"><img src="./img/visa.png" alt="виза" data-paymentsys="visa" class="cards__icon"></li>
+      <li class="cards__item"><img src="./img/mastercard.png" alt="мастеркард" data-paymentsys="mastercard" class="cards__icon"></li>
+      <li class="cards__item"><img src="./img/maestro.png" alt="маэстро" data-paymentsys="maestro" class="cards__icon"></li>
+      <li class="cards__item"><img src="./img/americanexpress.png" alt="американ экспресс" data-paymentsys="americanexpress" class="cards__icon"></li>
+      <li class="cards__item"><img src="./img/discover.png" alt="дискавер" data-paymentsys="discover" class="cards__icon"></li>
+      <li class="cards__item"><img src="./img/dinnersclub.png" alt="диннерс клаб" data-paymentsys="dinnersclub" class="cards__icon"></li>
+    </ul>
+  </div>
+  <form action="" class="validation__form">
+    <input type="text" pattern="[0-9]{3}" class="validation__input">
+    <button type="button" class="validation__button">Click to validate</button>
+  </form>
+  <div class="validity"></div>`;
+  }
+
+  bindToDOM() {
+    this._element.innerHTML = this.constructor.markup;
+  }
+
+  paymentSystemCheck(cardNumber) {
     let paymentSystem;
-    if (cardNumver.startsWith('2')) {
+    if (cardNumber.startsWith('2')) {
       paymentSystem = 'mir';
-    } else if (cardNumver.startsWith('34') || cardNumver.startsWith('37')) {
+    } else if (cardNumber.startsWith('34') || cardNumber.startsWith('37')) {
       paymentSystem = 'americanexpress';
-    } else if (cardNumver.startsWith('30') || cardNumver.startsWith('36') || cardNumver.startsWith('38')) {
+    } else if (cardNumber.startsWith('30') || cardNumber.startsWith('36') || cardNumber.startsWith('38')) {
       paymentSystem = 'dinnersclub';
-    } else if (cardNumver.startsWith('4')) {
+    } else if (cardNumber.startsWith('4')) {
       paymentSystem = 'visa';
-    } else if (cardNumver.startsWith('50') || cardNumver.startsWith('56') || cardNumver.startsWith('57') || cardNumver.startsWith('58') || cardNumver.startsWith('63') || cardNumver.startsWith('67')) {
+    } else if (cardNumber.startsWith('50') || cardNumber.startsWith('56') || cardNumber.startsWith('57') || cardNumber.startsWith('58') || cardNumber.startsWith('63') || cardNumber.startsWith('67')) {
       paymentSystem = 'maestro';
-    } else if (cardNumver.startsWith('51') || cardNumver.startsWith('52') || cardNumver.startsWith('53') || cardNumver.startsWith('54') || cardNumver.startsWith('55')) {
+    } else if (cardNumber.startsWith('51') || cardNumber.startsWith('52') || cardNumber.startsWith('53') || cardNumber.startsWith('54') || cardNumber.startsWith('55')) {
       paymentSystem = 'mastercard';
-    } else if (cardNumver.startsWith('60')) {
+    } else if (cardNumber.startsWith('60')) {
       paymentSystem = 'discover';
     }
     this.icons.forEach((element) => {
@@ -40,12 +62,13 @@ export default class ValidationWidget {
         element.classList.remove('cards__icon--active');
       }
     });
+    return paymentSystem;
   }
 
   checkValidity(value) {
-    if (value.length <= 15) {
+    if (value.length <= 14) {
       this.result.classList.add('validity--negative');
-      this.result.innerText = 'Номер карты должен содержать минимум 15 симовов';
+      this.result.innerText = 'Номер карты должен содержать минимум 14 симовов';
       return false;
     }
     let resultValue = 0;
