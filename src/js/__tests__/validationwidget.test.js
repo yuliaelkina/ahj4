@@ -3,7 +3,7 @@
  */
 import ValidationWidget from '../validationwidget';
 
-document.body.innerHTML='<div class = "card-widget"></div>';
+document.body.innerHTML = '<div class="card-widget"></div>';
 const testWidget = new ValidationWidget('.card-widget');
 testWidget.bindToDOM();
 test('проверка валидной карты visa', () => {
